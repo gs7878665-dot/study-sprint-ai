@@ -92,9 +92,16 @@
             <div class="results-card" id="resultsCard">
                 <h2>Your Personalized Study Roadmap</h2>
                 
-                <table class="study-table">
+                    <!-- Urgency & Tabs container injected by JS -->
+                    <div id="urgencyContainer"></div>
+                    <div id="tabsContainer" class="tabs-container"></div>
+
+                    <div id="dayView" class="day-view" style="display:none"></div>
+
+                    <table class="study-table">
                     <thead>
                         <tr>
+                            <th></th>
                             <th>Topic</th>
                             <th>Priority</th>
                             <th>Difficulty</th>
@@ -116,4 +123,4 @@
 
     <script type="module" src="script.js"></script>
 </body>
-</html>  
+</html>

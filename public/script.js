@@ -1,269 +1,316 @@
-// 1. IMPORTS
+// ==========================
+// FIREBASE IMPORTS
+// ==========================
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { 
-    getStorage, 
-    ref, 
-    uploadBytes, 
-    connectStorageEmulator // <--- NEW IMPORT
+import {
+  getStorage,
+  ref,
+  uploadBytes,
+  connectStorageEmulator
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
-import { 
-    getFunctions, 
-    httpsCallable, 
-    connectFunctionsEmulator // <--- NEW IMPORT
+import {
+  getFunctions,
+  httpsCallable,
+  connectFunctionsEmulator
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-functions.js";
 
-// 2. CONFIGURATION (Keep your keys here, they are safe locally)
+// ==========================
+// FIREBASE CONFIG (USE YOUR REAL ONE)
+// ==========================
 const firebaseConfig = {
-    apiKey: "AIzaSyDyCTS0DLLT-6pTSG_bPNdnUXjIbG2462E", // (Keep your real key)
-    authDomain: "study-sprint-64688.firebaseapp.com",
-    projectId: "study-sprint-64688",
-    storageBucket: "study-sprint-64688.firebasestorage.app",
-    messagingSenderId: "...", // (These last two are optional for local testing)
-    appId: "..."
+  apiKey: "AIzaSyBtycxDl7viHVyA85iwpIYiLMKW5A7ke_I",
+  authDomain: "study-sprint-64688.firebaseapp.com",
+  projectId: "study-sprint-64688",
+  storageBucket: "study-sprint-64688.appspot.com",
+  appId: "1:702325091259:web:7a0f0b5c7d1e2f3a4b5c6d"
 };
 
-// 3. INITIALIZE & CONNECT TO LOCAL EMULATORS
+// ==========================
+// INIT FIREBASE + EMULATORS
+// ==========================
 const app = initializeApp(firebaseConfig);
-
 const storage = getStorage(app);
-connectStorageEmulator(storage, "127.0.0.1", 9199); // <--- Points to Local Storage
-
 const functions = getFunctions(app);
-connectFunctionsEmulator(functions, "127.0.0.1", 5001); // <--- Points to Local Python Backend
 
+// Local dev (avoids CORS)
+connectStorageEmulator(storage, "127.0.0.1", 9199);
+connectFunctionsEmulator(functions, "127.0.0.1", 5001);
 
-// ==========================================
-// 3. GLOBAL VARIABLES & DOM ELEMENTS
-// ==========================================
+// ==========================
+// GLOBAL STATE
+// ==========================
 let uploadedFile = null;
 let daysUntilExam = null;
+let totalHours = 0;
+let remainingHours = 0;
 
-const uploadZone = document.getElementById('uploadZone');
-const fileInput = document.getElementById('fileInput');
-const uploadContent = document.getElementById('uploadContent');
-const examDateInput = document.getElementById('examDate');
-const daysCounter = document.getElementById('daysCounter');
-const daysText = document.getElementById('daysText');
-const errorAlert = document.getElementById('errorAlert');
-const errorText = document.getElementById('errorText');
-const generateBtn = document.getElementById('generateBtn');
-const btnText = document.getElementById('btnText');
-const resultsCard = document.getElementById('resultsCard');
-const studyTableBody = document.getElementById('studyTableBody');
+// ==========================
+// DOM REFERENCES
+// ==========================
+const uploadZone = document.getElementById("uploadZone");
+const fileInput = document.getElementById("fileInput");
+const uploadContent = document.getElementById("uploadContent");
+const examDateInput = document.getElementById("examDate");
+const daysCounter = document.getElementById("daysCounter");
+const daysText = document.getElementById("daysText");
+const errorAlert = document.getElementById("errorAlert");
+const errorText = document.getElementById("errorText");
+const generateBtn = document.getElementById("generateBtn");
+const btnText = document.getElementById("btnText");
+const resultsCard = document.getElementById("resultsCard");
+const studyTableBody = document.getElementById("studyTableBody");
+const urgencyContainer = document.getElementById("urgencyContainer");
+const tabsContainer = document.getElementById("tabsContainer");
+const dayView = document.getElementById("dayView");
 
-// Set minimum date to today so users can't pick the past
-const today = new Date().toISOString().split('T')[0];
-examDateInput.setAttribute('min', today);
-
-// ==========================================
-// 4. EVENT LISTENERS (UI LOGIC)
-// ==========================================
-
-// --- File Upload Handling ---
-uploadZone.addEventListener('click', () => {
-    fileInput.click();
-});
-
-// Drag & Drop Visual Effects
-uploadZone.addEventListener('dragover', (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    uploadZone.classList.add('drag-active');
-});
-
-uploadZone.addEventListener('dragleave', (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    uploadZone.classList.remove('drag-active');
-});
-
-uploadZone.addEventListener('drop', (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    uploadZone.classList.remove('drag-active');
-    
-    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-        handleFileSelection(e.dataTransfer.files[0]);
-    }
-});
-
-// Standard File Input Change
-fileInput.addEventListener('change', (e) => {
-    if (e.target.files && e.target.files[0]) {
-        handleFileSelection(e.target.files[0]);
-    }
-});
-
-function handleFileSelection(file) {
-    hideError();
-    
-    // Validate PDF
-    if (file.type !== 'application/pdf') {
-        showError('Please upload PDF files only');
-        uploadedFile = null;
-        uploadZone.classList.remove('file-uploaded');
-        return;
-    }
-    
-    // Update State & UI
-    uploadedFile = file;
-    uploadZone.classList.add('file-uploaded');
-    
-    uploadContent.innerHTML = `
-        <div class="upload-icon">
-            <i class="fas fa-check-circle"></i>
-        </div>
-        <div class="file-name">${file.name}</div>
-        <div class="upload-subtext">Click to change file</div>
-    `;
+// ==========================
+// SIDEBAR STATE
+// ==========================
+function setSidebarActive(label) {
+  document.querySelectorAll(".nav-item").forEach(btn => {
+    btn.classList.toggle("active", btn.textContent.trim() === label);
+  });
 }
 
-// --- Date Picker Handling ---
-examDateInput.addEventListener('change', (e) => {
-    hideError();
-    
-    if (e.target.value) {
-        const todayDate = new Date();
-        todayDate.setHours(0, 0, 0, 0); // Reset time to midnight
-        const examDate = new Date(e.target.value);
-        examDate.setHours(0, 0, 0, 0);
-        
-        // Calculate difference in days
-        const diffTime = examDate - todayDate;
-        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-        
-        if (diffDays < 0) {
-            showError('Please select a future date');
-            daysUntilExam = null;
-            daysCounter.style.display = 'none';
-        } else {
-            daysUntilExam = diffDays;
-            daysText.textContent = `${diffDays} days until exam`;
-            daysCounter.style.display = 'flex';
-        }
-    }
+// ==========================
+// FILE UPLOAD
+// ==========================
+uploadZone.addEventListener("click", () => fileInput.click());
+
+uploadZone.addEventListener("dragover", e => {
+  e.preventDefault();
+  uploadZone.classList.add("drag-active");
 });
 
-// --- Generate Button Click ---
-generateBtn.addEventListener('click', async () => {
-    if (!uploadedFile) {
-        showError('Please upload a syllabus PDF');
-        return;
-    }
-    
-    if (!daysUntilExam || daysUntilExam < 0) {
-        showError('Please select a valid exam date');
-        return;
-    }
-    
-    // Start the process
-    await generateStudyPlan();
+uploadZone.addEventListener("dragleave", () => {
+  uploadZone.classList.remove("drag-active");
 });
 
-// ==========================================
-// 5. CORE LOGIC (FIREBASE CONNECTION)
-// ==========================================
-async function generateStudyPlan() {
-    hideError();
-    setLoading(true); // Show spinner
-    
-    try {
-        console.log("Step 1: Uploading file to Firebase Storage...");
-        
-        // A. Upload PDF to Storage
-        // Path will be: syllabi/filename.pdf
-        const storageRef = ref(storage, 'syllabi/' + uploadedFile.name);
-        const snapshot = await uploadBytes(storageRef, uploadedFile);
-        const fullPath = snapshot.metadata.fullPath;
-        
-        console.log("File uploaded. Path:", fullPath);
-        console.log("Step 2: Calling Cloud Function...");
+uploadZone.addEventListener("drop", e => {
+  e.preventDefault();
+  uploadZone.classList.remove("drag-active");
+  if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
+});
 
-        // B. Call Python Cloud Function
-        // Note: 'analyze_syllabus' must match the @https_fn.on_call function name in python
-        const analyzeFunction = httpsCallable(functions, 'analyze_syllabus');
-        
-        const result = await analyzeFunction({ 
-            filePath: fullPath,
-            days: daysUntilExam 
-        });
-        
-        console.log("Result received:", result.data);
+fileInput.addEventListener("change", e => {
+  if (e.target.files[0]) handleFile(e.target.files[0]);
+});
 
-        // C. Display the Result 
-        const studyPlan = result.data.plan;
-        displayStudyPlan(studyPlan);
-        
-    } catch (error) {
-        console.error("Error generating plan:", error);
-        showError('Failed to generate study plan. Check console for details.');
-    } finally {
-        setLoading(false); // Hide spinner
-    }
+function handleFile(file) {
+  hideError();
+
+  if (!file.name.toLowerCase().endsWith(".pdf")) {
+    showError("Please upload a PDF file");
+    return;
+  }
+
+  uploadedFile = file;
+  uploadZone.classList.add("file-uploaded");
+
+  uploadContent.innerHTML = `
+    <div class="upload-icon"><i class="fas fa-check-circle"></i></div>
+    <div class="file-name">${file.name}</div>
+    <div class="upload-subtext">Click to change file</div>
+  `;
 }
 
-// ==========================================
-// 6. UI HELPER FUNCTIONS
-// ==========================================
+// ==========================
+// DATE PICKER
+// ==========================
+examDateInput.min = new Date().toISOString().split("T")[0];
 
-function displayStudyPlan(plan) {
-    studyTableBody.innerHTML = '';
-    
-    // Loop through the JSON data and build table rows
-    plan.forEach(topic => {
-        const row = document.createElement('tr');
-        
-        // Determine Priority Badge Color
-        const priorityBadgeClass = topic.priority === 'High' 
-            ? 'badge-high-priority' 
-            : 'badge-medium-priority';
-        
-        // Determine Difficulty Badge Color
-        let difficultyBadgeClass;
-        if (topic.difficulty === 'Easy') difficultyBadgeClass = 'badge-easy';
-        else if (topic.difficulty === 'Medium') difficultyBadgeClass = 'badge-medium';
-        else difficultyBadgeClass = 'badge-hard';
-        
-        // Insert HTML
-        row.innerHTML = `
-            <td class="topic-name">${topic.name}</td>
-            <td><span class="badge ${priorityBadgeClass}">${topic.priority}</span></td>
-            <td><span class="badge ${difficultyBadgeClass}">${topic.difficulty}</span></td>
-            <td class="hours">${topic.hours} hours</td>
-        `;
-        
-        studyTableBody.appendChild(row);
+examDateInput.addEventListener("change", e => {
+  hideError();
+
+  const today = new Date();
+  const exam = new Date(e.target.value);
+  today.setHours(0,0,0,0);
+  exam.setHours(0,0,0,0);
+
+  const diff = Math.ceil((exam - today) / 86400000);
+
+  if (diff <= 0) {
+    daysUntilExam = null;
+    daysCounter.style.display = "none";
+    showError("Select a future exam date");
+  } else {
+    daysUntilExam = diff;
+    daysText.textContent = `${diff} days until exam`;
+    daysCounter.style.display = "flex";
+  }
+});
+
+// ==========================
+// GENERATE BUTTON
+// ==========================
+generateBtn.addEventListener("click", async () => {
+  if (!uploadedFile) return showError("Upload syllabus PDF");
+  if (!daysUntilExam) return showError("Select exam date");
+
+  await generatePlan();
+});
+
+// ==========================
+// CORE FLOW
+// ==========================
+async function generatePlan() {
+  hideError();
+  setLoading(true);
+  setSidebarActive("Dashboard");
+
+  try {
+    const storageRef = ref(storage, `syllabi/${uploadedFile.name}`);
+    const snap = await uploadBytes(storageRef, uploadedFile);
+
+    // Call the local HTTP wrapper (has CORS headers) on the Functions emulator
+    const fnUrl = `http://127.0.0.1:5001/${firebaseConfig.projectId}/us-central1/analyze_syllabus_http`;
+    const resp = await fetch(fnUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ filePath: snap.metadata.fullPath, days: daysUntilExam })
     });
-    
-    // Show the results card with animation
-    resultsCard.classList.add('show');
-    resultsCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-}
 
-function setLoading(isLoading) {
-    generateBtn.disabled = isLoading;
-    
-    if (isLoading) {
-        // Show Spinner
-        const loaderDiv = document.createElement('div');
-        loaderDiv.className = 'loader';
-        const span = document.createElement('span');
-        span.textContent = 'Analyzing Syllabus...';
-        
-        btnText.innerHTML = '';
-        btnText.appendChild(loaderDiv);
-        btnText.appendChild(span);
-    } else {
-        // Reset Text
-        btnText.textContent = 'Generate Schedule';
+    if (!resp.ok) {
+      const err = await resp.json().catch(()=>({error:'unknown'}));
+      throw new Error('Function error: ' + (err.error || resp.statusText));
     }
+
+    const data = await resp.json();
+    renderResults(data.plan);
+
+  } catch (err) {
+    console.error(err);
+    showError("Failed to generate study plan");
+  } finally {
+    setLoading(false);
+  }
 }
 
-function showError(message) {
-    errorText.textContent = message;
-    errorAlert.classList.add('show');
+// ==========================
+// RENDER RESULTS
+// ==========================
+function renderResults(plan) {
+  studyTableBody.innerHTML = "";
+  urgencyContainer.innerHTML = "";
+  tabsContainer.innerHTML = "";
+  dayView.innerHTML = "";
+  dayView.style.display = "none";
+
+  totalHours = plan.reduce((s,t)=>s+Number(t.hours),0);
+  remainingHours = totalHours;
+
+  renderUrgency(plan);
+  renderTabs(plan);
+
+  plan.forEach(topic => {
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td><input type="checkbox" class="topic-done" data-hours="${topic.hours}"></td>
+      <td class="topic-name">${topic.name}</td>
+      <td><span class="badge badge-medium-priority">${topic.priority}</span></td>
+      <td><span class="badge badge-medium">${topic.difficulty}</span></td>
+      <td class="hours">${topic.hours} hours</td>
+    `;
+    studyTableBody.appendChild(row);
+  });
+
+  resultsCard.classList.add("show");
+  setSidebarActive("My Schedule");
 }
 
-function hideError() {
-    errorAlert.classList.remove('show');
+// ==========================
+// URGENCY + PROGRESS
+// ==========================
+function renderUrgency() {
+  const perDay = (remainingHours / daysUntilExam).toFixed(1);
+
+  urgencyContainer.innerHTML = `
+    <div class="time-urgency">
+      <div class="days-big">
+        <div class="num">${daysUntilExam}</div>
+        <div class="label">days left</div>
+      </div>
+      <div class="timeline">
+        <div>Workload: ${remainingHours} hrs — est ${perDay} hrs/day</div>
+        <div class="day-boxes">
+          ${Array.from({length: Math.min(daysUntilExam,30)})
+            .map(()=>`<div class="day-box ${perDay>6?'red':perDay>4?'yellow':'green'}"></div>`).join("")}
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+// ==========================
+// TABS
+// ==========================
+function renderTabs(plan) {
+  const tabs = ["Overview","By Day","Topics"];
+  tabs.forEach((t,i)=>{
+    const tab = document.createElement("div");
+    tab.className = `tab ${i===0?'active':''}`;
+    tab.textContent = t;
+    tab.onclick = ()=>switchTab(t, plan);
+    tabsContainer.appendChild(tab);
+  });
+}
+
+function switchTab(tab, plan) {
+  document.querySelectorAll(".tab").forEach(t=>t.classList.toggle("active",t.textContent===tab));
+
+  if (tab==="By Day") {
+    document.querySelector(".study-table").style.display="none";
+    renderByDay(plan);
+  } else {
+    dayView.style.display="none";
+    document.querySelector(".study-table").style.display="table";
+  }
+}
+
+function renderByDay(plan) {
+  dayView.style.display="block";
+  dayView.innerHTML="";
+  const perDay = totalHours / daysUntilExam;
+
+  let day=1, acc=0;
+  const list=document.createElement("div"); list.className="day-list";
+
+  plan.forEach(t=>{
+    if(acc+t.hours>perDay){ day++; acc=0; }
+    acc+=t.hours;
+    const d=document.createElement("div");
+    d.className="day-card";
+    d.innerHTML=`<h4>Day ${day}</h4><div>${t.name} — ${t.hours} hrs</div>`;
+    list.appendChild(d);
+  });
+
+  dayView.appendChild(list);
+}
+
+// ==========================
+// CHECKBOX HANDLING
+// ==========================
+studyTableBody.addEventListener("change", e=>{
+  if(!e.target.classList.contains("topic-done")) return;
+  const h=Number(e.target.dataset.hours);
+  remainingHours += e.target.checked ? -h : h;
+  e.target.closest("tr").classList.toggle("completed", e.target.checked);
+  renderUrgency();
+});
+
+// ==========================
+// UI HELPERS
+// ==========================
+function setLoading(v){
+  generateBtn.disabled=v;
+  btnText.innerHTML=v?`<div class="loader"></div><span>Analyzing...</span>`:"Generate Schedule";
+}
+
+function showError(msg){
+  errorText.textContent=msg;
+  errorAlert.classList.add("show");
+}
+
+function hideError(){
+  errorAlert.classList.remove("show");
 }
