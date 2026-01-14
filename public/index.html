@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudySprint AI - Study Planner</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="logo-container">
+            <div class="logo-icon">
+                <i class="fas fa-sparkles"></i>
+            </div>
+            <div class="logo-text">StudySprint AI</div>
+        </div>
+        
+        <nav class="nav-menu">
+            <button class="nav-item active">
+                <i class="fas fa-book"></i>
+                <span>Dashboard</span>
+            </button>
+            <button class="nav-item">
+                <i class="fas fa-calendar"></i>
+                <span>My Schedule</span>
+            </button>
+            <button class="nav-item">
+                <i class="fas fa-check-circle"></i>
+                <span>Quiz Me</span>
+            </button>
+        </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="container">
+            <!-- Header -->
+            <div class="header">
+                <h1>Create Your Study Plan</h1>
+                <div class="powered-by">
+                    <span class="powered-by-text">Made by</span>
+                    <span class="powered-by-brand">Gaurav Shukla</span>
+                </div>
+            </div>
+
+            <!-- Input Card -->
+            <div class="input-card">
+                <div class="input-grid">
+                    <!-- File Upload -->
+                    <div class="input-group">
+                        <label>Upload Syllabus PDF</label>
+                        <div class="upload-zone" id="uploadZone">
+                            <input type="file" id="fileInput" accept=".pdf">
+                            <div id="uploadContent">
+                                <div class="upload-icon">
+                                    <i class="fas fa-cloud-upload-alt"></i>
+                                </div>
+                                <div class="upload-text">Drag and drop zone to file here</div>
+                                <div class="upload-subtext">or click to browse</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Date Picker -->
+                    <div class="input-group">
+                        <label>Select Exam Date</label>
+                        <input type="date" id="examDate" class="date-input">
+                        <div class="days-counter" id="daysCounter" style="display: none;">
+                            <i class="fas fa-clock"></i>
+                            <span id="daysText"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Error Alert -->
+                <div class="error-alert" id="errorAlert">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <span id="errorText"></span>
+                </div>
+
+                <!-- Generate Button -->
+                <button class="generate-btn" id="generateBtn">
+                    <div class="btn-content">
+                        <span id="btnText">Generate Schedule</span>
+                    </div>
+                </button>
+            </div>
+
+            <!-- Results Card -->
+            <div class="results-card" id="resultsCard">
+                <h2>Your Personalized Study Roadmap</h2>
+                
+                <table class="study-table">
+                    <thead>
+                        <tr>
+                            <th>Topic</th>
+                            <th>Priority</th>
+                            <th>Difficulty</th>
+                            <th>Study Hours</th>
+                        </tr>
+                    </thead>
+                    <tbody id="studyTableBody">
+                        <!-- Dynamic content will be inserted here -->
+                    </tbody>
+                </table>
+
+                <div class="note-box">
+                    <strong>Note:</strong> This is a personalized study plan based on your syllabus and available time. 
+                    Adjust as needed based on your progress and understanding.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="script.js"></script>
+</body>
+</html>  

@@ -1,0 +1,245 @@
+[debug] [2026-01-14T08:40:23.322Z] ----------------------------------------------------------------------
+[debug] [2026-01-14T08:40:23.325Z] Command:       D:\Node js\node.exe C:\Users\Gaurav Shukla\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js emulators:start
+[debug] [2026-01-14T08:40:23.325Z] CLI Version:   15.2.1
+[debug] [2026-01-14T08:40:23.325Z] Platform:      win32
+[debug] [2026-01-14T08:40:23.325Z] Node Version:  v22.20.0
+[debug] [2026-01-14T08:40:23.326Z] Time:          Wed Jan 14 2026 14:10:23 GMT+0530 (India Standard Time)
+[debug] [2026-01-14T08:40:23.326Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-01-14T08:40:24.581Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-01-14T08:40:24.582Z] > authorizing via signed-in user (gs7878665@gmail.com)
+[debug] [2026-01-14T08:40:25.132Z] java version "21.0.9" 2025-10-21 LTS
+
+[debug] [2026-01-14T08:40:25.132Z] Java(TM) SE Runtime Environment (build 21.0.9+7-LTS-338)
+Java HotSpot(TM) 64-Bit Server VM (build 21.0.9+7-LTS-338, mixed mode, sharing)
+
+[debug] [2026-01-14T08:40:25.176Z] Parsed Java major version: 21
+[info] i  emulators: Starting emulators: functions, hosting, storage, extensions {"metadata":{"emulator":{"name":"hub"},"message":"Starting emulators: functions, hosting, storage, extensions"}}
+[debug] [2026-01-14T08:40:25.179Z] Checked if tokens are valid: false, expires at: 1762860192625
+[debug] [2026-01-14T08:40:25.179Z] Checked if tokens are valid: false, expires at: 1762860192625
+[debug] [2026-01-14T08:40:25.179Z] > refreshing access token with scopes: []
+[debug] [2026-01-14T08:40:25.181Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2026-01-14T08:40:25.181Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-01-14T08:40:25.474Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2026-01-14T08:40:25.475Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-01-14T08:40:25.508Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/study-sprint-64688/services/cloudresourcemanager.googleapis.com [none]
+[debug] [2026-01-14T08:40:25.509Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/study-sprint-64688/services/cloudresourcemanager.googleapis.com x-goog-quota-user=projects/study-sprint-64688
+[debug] [2026-01-14T08:40:27.410Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/study-sprint-64688/services/cloudresourcemanager.googleapis.com 200
+[debug] [2026-01-14T08:40:27.410Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/study-sprint-64688/services/cloudresourcemanager.googleapis.com [omitted]
+[debug] [2026-01-14T08:40:27.417Z] Checked if tokens are valid: true, expires at: 1768383624475
+[debug] [2026-01-14T08:40:27.417Z] Checked if tokens are valid: true, expires at: 1768383624475
+[debug] [2026-01-14T08:40:27.417Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/projects/study-sprint-64688 [none]
+[debug] [2026-01-14T08:40:29.020Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/projects/study-sprint-64688 200
+[debug] [2026-01-14T08:40:29.021Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/projects/study-sprint-64688 {"projectNumber":"1055472398958","projectId":"study-sprint-64688","lifecycleState":"ACTIVE","name":"study-sprint","labels":{"firebase":"enabled","firebase-core":"disabled"},"createTime":"2026-01-14T08:35:15.630517Z"}
+[debug] [2026-01-14T08:40:29.042Z] [logging] Logging Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2026-01-14T08:40:29.042Z] [hosting] Hosting Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2026-01-14T08:40:29.042Z] [storage] Storage Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2026-01-14T08:40:29.042Z] assigned listening specs for emulators {"user":{"hub":[{"address":"127.0.0.1","family":"IPv4","port":4400},{"address":"::1","family":"IPv6","port":4400}],"ui":[{"address":"127.0.0.1","family":"IPv4","port":4000},{"address":"::1","family":"IPv6","port":4000}],"logging":[{"address":"127.0.0.1","family":"IPv4","port":4500}],"hosting":[{"address":"127.0.0.1","family":"IPv4","port":5000}],"storage":[{"address":"127.0.0.1","family":"IPv4","port":9199}]},"metadata":{"message":"assigned listening specs for emulators"}}
+[debug] [2026-01-14T08:40:29.050Z] Write emulator hub locator at C:\Users\GAURAV~1\AppData\Local\Temp\hub-study-sprint-64688.json
+[debug] [2026-01-14T08:40:29.062Z] [Extensions] Started Extensions emulator, this is a noop.
+[debug] [2026-01-14T08:40:29.070Z] [functions] Functions Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2026-01-14T08:40:29.070Z] [eventarc] Eventarc Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2026-01-14T08:40:29.070Z] [tasks] Cloud Tasks Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2026-01-14T08:40:29.070Z] late-assigned ports for functions and eventarc emulators {"user":{"hub":[{"address":"127.0.0.1","family":"IPv4","port":4400},{"address":"::1","family":"IPv6","port":4400}],"ui":[{"address":"127.0.0.1","family":"IPv4","port":4000},{"address":"::1","family":"IPv6","port":4000}],"logging":[{"address":"127.0.0.1","family":"IPv4","port":4500}],"hosting":[{"address":"127.0.0.1","family":"IPv4","port":5000}],"storage":[{"address":"127.0.0.1","family":"IPv4","port":9199}],"functions":[{"address":"127.0.0.1","family":"IPv4","port":5001}],"eventarc":[{"address":"127.0.0.1","family":"IPv4","port":9299}],"tasks":[{"address":"127.0.0.1","family":"IPv4","port":9499}]},"metadata":{"message":"late-assigned ports for functions and eventarc emulators"}}
+[warn] !  functions: The following emulators are not running, calls to these services from the Functions emulator will affect production: apphosting, auth, firestore, database, pubsub, dataconnect {"metadata":{"emulator":{"name":"functions"},"message":"The following emulators are not running, calls to these services from the Functions emulator will affect production: \u001b[1mapphosting, auth, firestore, database, pubsub, dataconnect\u001b[22m"}}
+[debug] [2026-01-14T08:40:29.125Z] defaultcredentials: writing to file C:\Users\Gaurav Shukla\AppData\Roaming\firebase\gs7878665_gmail_com_application_default_credentials.json
+[debug] [2026-01-14T08:40:29.132Z] Setting GAC to C:\Users\Gaurav Shukla\AppData\Roaming\firebase\gs7878665_gmail_com_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to C:\\Users\\Gaurav Shukla\\AppData\\Roaming\\firebase\\gs7878665_gmail_com_application_default_credentials.json"}}
+[debug] [2026-01-14T08:40:29.132Z] Checked if tokens are valid: true, expires at: 1768383624475
+[debug] [2026-01-14T08:40:29.133Z] Checked if tokens are valid: true, expires at: 1768383624475
+[debug] [2026-01-14T08:40:29.133Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/study-sprint-64688/adminSdkConfig [none]
+[debug] [2026-01-14T08:40:29.630Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/study-sprint-64688/adminSdkConfig 200
+[debug] [2026-01-14T08:40:29.631Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/study-sprint-64688/adminSdkConfig {"projectId":"study-sprint-64688","storageBucket":"study-sprint-64688.firebasestorage.app"}
+[info] i  storage: downloading cloud-storage-rules-runtime-v1.1.3.jar... {"metadata":{"emulator":{"name":"storage"},"message":"downloading cloud-storage-rules-runtime-v1.1.3.jar..."}}
+[debug] [2026-01-14T08:40:29.689Z] >>> [apiv2][query] GET https://storage.googleapis.com/firebase-preview-drop/emulator/cloud-storage-rules-runtime-v1.1.3.jar 
+[debug] [2026-01-14T08:40:30.179Z] <<< [apiv2][status] GET https://storage.googleapis.com/firebase-preview-drop/emulator/cloud-storage-rules-runtime-v1.1.3.jar 200
+[debug] [2026-01-14T08:40:30.179Z] <<< [apiv2][body] GET https://storage.googleapis.com/firebase-preview-drop/emulator/cloud-storage-rules-runtime-v1.1.3.jar [stream]
+[debug] [2026-01-14T08:40:36.751Z] Ignoring unsupported arg: port {"metadata":{"emulator":{"name":"storage"},"message":"Ignoring unsupported arg: port"}}
+[debug] [2026-01-14T08:40:37.855Z] Temp file directory for storage emulator: C:\Users\GAURAV~1\AppData\Local\Temp/firebase/storage/blobs {"metadata":{"emulator":{"name":"storage"},"message":"Temp file directory for storage emulator: C:\\Users\\GAURAV~1\\AppData\\Local\\Temp/firebase/storage/blobs"}}
+[debug] [2026-01-14T08:40:37.865Z] Checked if tokens are valid: true, expires at: 1768383624475
+[debug] [2026-01-14T08:40:37.865Z] Checked if tokens are valid: true, expires at: 1768383624475
+[debug] [2026-01-14T08:40:37.867Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/study-sprint-64688/sites 
+[debug] [2026-01-14T08:40:39.860Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/study-sprint-64688/sites 200
+[debug] [2026-01-14T08:40:39.860Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/study-sprint-64688/sites {"sites":[{"name":"projects/study-sprint-64688/sites/study-sprint-64688","defaultUrl":"https://study-sprint-64688.web.app","type":"DEFAULT_SITE"}]}
+[debug] [2026-01-14T08:40:39.861Z] Checked if tokens are valid: true, expires at: 1768383624475
+[debug] [2026-01-14T08:40:39.861Z] Checked if tokens are valid: true, expires at: 1768383624475
+[debug] [2026-01-14T08:40:39.861Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/study-sprint-64688/webApps/-/config [none]
+[debug] [2026-01-14T08:40:40.447Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/study-sprint-64688/webApps/-/config 200
+[debug] [2026-01-14T08:40:40.447Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/study-sprint-64688/webApps/-/config {"projectId":"study-sprint-64688","storageBucket":"study-sprint-64688.firebasestorage.app","apiKey":"AIzaSyDsm3_00RxOjoz6oOMBc2wvGyjyb0VVo5Q","authDomain":"study-sprint-64688.firebaseapp.com","messagingSenderId":"1055472398958","projectNumber":"1055472398958","version":"2"}
+[debug] [2026-01-14T08:40:40.492Z] Checked if tokens are valid: true, expires at: 1768383624475
+[debug] [2026-01-14T08:40:40.492Z] Checked if tokens are valid: true, expires at: 1768383624475
+[debug] [2026-01-14T08:40:40.492Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/study-sprint-64688 [none]
+[debug] [2026-01-14T08:40:40.865Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/study-sprint-64688 200
+[debug] [2026-01-14T08:40:40.865Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/study-sprint-64688 {"projectId":"study-sprint-64688","projectNumber":"1055472398958","displayName":"study-sprint","name":"projects/study-sprint-64688","resources":{"hostingSite":"study-sprint-64688"},"state":"ACTIVE","etag":"1_0b44af40-9113-4674-9f5c-6c03333d1ccc"}
+[info] i  hosting[study-sprint-64688]: Serving hosting files from: public {"metadata":{"emulator":{"name":"hosting"},"message":"Serving hosting files from: \u001b[1mpublic\u001b[22m"}}
+[info] +  hosting[study-sprint-64688]: Local server: http://127.0.0.1:5000 {"metadata":{"emulator":{"name":"hosting"},"message":"Local server: \u001b[4m\u001b[1mhttp://127.0.0.1:5000\u001b[22m\u001b[24m"}}
+[debug] [2026-01-14T08:40:41.133Z] [Extensions] Connecting Extensions emulator, this is a noop.
+[info] i  functions: Watching "D:\web dev projects\study sprint ai\functions" for Cloud Functions... {"metadata":{"emulator":{"name":"functions"},"message":"Watching \"D:\\web dev projects\\study sprint ai\\functions\" for Cloud Functions..."}}
+[debug] [2026-01-14T08:40:41.147Z] Customer code is not Node
+[debug] [2026-01-14T08:40:41.149Z] Validating python source
+[debug] [2026-01-14T08:40:41.150Z] Building python source
+[debug] [2026-01-14T08:40:41.153Z] Could not find functions.yaml. Must use http discovery
+[debug] [2026-01-14T08:40:41.161Z] Running command with virtualenv: command="D:\web dev projects\study sprint ai\functions\venv\Scripts\activate.bat", args=["","&&","python.exe","-c","\"import firebase_functions; import os; print(os.path.dirname(firebase_functions.__file__))\""]
+[debug] [2026-01-14T08:40:41.421Z] stdout: D:\web dev projects\study sprint ai\functions\venv\Lib\site-packages\firebase_functions
+
+[debug] [2026-01-14T08:40:41.431Z] Running admin server with args: ["python.exe","\"D:\\web dev projects\\study sprint ai\\functions\\venv\\Lib\\site-packages\\firebase_functions\\private\\serving.py\""] and env: {"GCLOUD_PROJECT":"study-sprint-64688","K_REVISION":"1","PORT":"80","GOOGLE_CLOUD_QUOTA_PROJECT":"study-sprint-64688","FUNCTIONS_EMULATOR":"true","TZ":"UTC","FIREBASE_DEBUG_MODE":"true","FIREBASE_DEBUG_FEATURES":"{\"skipTokenVerification\":true,\"enableCors\":true}","FIREBASE_EMULATOR_HUB":"127.0.0.1:4400","FIREBASE_STORAGE_EMULATOR_HOST":"127.0.0.1:9199","STORAGE_EMULATOR_HOST":"http://127.0.0.1:9199","CLOUD_EVENTARC_EMULATOR_HOST":"http://127.0.0.1:9299","CLOUD_TASKS_EMULATOR_HOST":"127.0.0.1:9499","FIREBASE_CONFIG":"{\"storageBucket\":\"study-sprint-64688.firebasestorage.app\",\"projectId\":\"study-sprint-64688\"}","GOOGLE_APPLICATION_CREDENTIALS":"C:\\Users\\Gaurav Shukla\\AppData\\Roaming\\firebase\\gs7878665_gmail_com_application_default_credentials.json","ADMIN_PORT":"8081"} in D:\web dev projects\study sprint ai\functions
+[debug] [2026-01-14T08:40:41.431Z] Running command with virtualenv: command="D:\web dev projects\study sprint ai\functions\venv\Scripts\activate.bat", args=["","&&","python.exe","\"D:\\web dev projects\\study sprint ai\\functions\\venv\\Lib\\site-packages\\firebase_functions\\private\\serving.py\""]
+[info]  * Serving Flask app 'serving'
+ * Debug mode: off
+
+[error] WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on http://127.0.0.1:8081
+
+[error] Press CTRL+C to quit
+
+[error] D:\web dev projects\study sprint ai\functions\main.py:3: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai
+
+[error] 127.0.0.1 - - [14/Jan/2026 08:40:45] "GET /__/functions.yaml HTTP/1.1" 200 -
+
+[debug] [2026-01-14T08:40:45.571Z] Got response from /__/functions.yaml endpoints:
+  analyze_syllabus:
+    availableMemoryMb: null
+    callableTrigger: {}
+    concurrency: null
+    entryPoint: analyze_syllabus
+    ingressSettings: null
+    labels:
+      deployment-callable: 'true'
+    maxInstances: null
+    minInstances: null
+    platform: gcfv2
+    secretEnvironmentVariables: []
+    serviceAccountEmail: null
+    timeoutSeconds: null
+params: []
+requiredAPIs: []
+specVersion: v1alpha1
+
+[error] 127.0.0.1 - - [14/Jan/2026 08:40:45] "GET /__/quitquitquit HTTP/1.1" 200 -
+
+[info] +  functions: Loaded functions definitions from source: analyze_syllabus. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: analyze_syllabus."}}
+[info] +  functions[us-central1-analyze_syllabus]: http function initialized (http://127.0.0.1:5001/study-sprint-64688/us-central1/analyze_syllabus). {"metadata":{"emulator":{"name":"functions"},"message":"\u001b[1mhttp\u001b[22m function initialized (http://127.0.0.1:5001/study-sprint-64688/us-central1/analyze_syllabus)."}}
+[debug] [2026-01-14T08:40:45.614Z] Could not find VSCode notification endpoint: FetchError: request to http://localhost:40001/vscode/notify failed, reason: . If you are not running the Firebase Data Connect VSCode extension, this is expected and not an issue.
+[info] 
+┌─────────────────────────────────────────────────────────────┐
+│ ✔  All emulators ready! It is now safe to connect your app. │
+│ i  View Emulator UI at http://127.0.0.1:4000/               │
+└─────────────────────────────────────────────────────────────┘
+
+┌────────────┬────────────────┬──────────────────────────────────┐
+│ Emulator   │ Host:Port      │ View in Emulator UI              │
+├────────────┼────────────────┼──────────────────────────────────┤
+│ Functions  │ 127.0.0.1:5001 │ http://127.0.0.1:4000/functions  │
+├────────────┼────────────────┼──────────────────────────────────┤
+│ Hosting    │ 127.0.0.1:5000 │ n/a                              │
+├────────────┼────────────────┼──────────────────────────────────┤
+│ Storage    │ 127.0.0.1:9199 │ http://127.0.0.1:4000/storage    │
+├────────────┼────────────────┼──────────────────────────────────┤
+│ Extensions │ 127.0.0.1:5001 │ http://127.0.0.1:4000/extensions │
+└────────────┴────────────────┴──────────────────────────────────┘
+  Emulator Hub host: 127.0.0.1 port: 4400
+  Other reserved ports: 4500
+┌─────────────────────────┬───────────────┬─────────────────────┐
+│ Extension Instance Name │ Extension Ref │ View in Emulator UI │
+└─────────────────────────┴───────────────┴─────────────────────┘
+Issues? Report them at https://github.com/firebase/firebase-tools/issues and attach the *-debug.log files.
+ 
+[info] i  hosting: 127.0.0.1 - - [14/Jan/2026:08:43:01 +0000] "GET / HTTP/1.1" 200 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36 Edg/143.0.0.0" {"metadata":{"emulator":{"name":"hosting"},"message":"127.0.0.1 - - [14/Jan/2026:08:43:01 +0000] \"GET / HTTP/1.1\" 200 - \"-\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36 Edg/143.0.0.0\""}}
+[info] i  hosting: 127.0.0.1 - - [14/Jan/2026:08:43:01 +0000] "GET /style.css HTTP/1.1" 200 - "http://127.0.0.1:5000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36 Edg/143.0.0.0" {"metadata":{"emulator":{"name":"hosting"},"message":"127.0.0.1 - - [14/Jan/2026:08:43:01 +0000] \"GET /style.css HTTP/1.1\" 200 - \"http://127.0.0.1:5000/\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36 Edg/143.0.0.0\""}}
+[info] i  hosting: 127.0.0.1 - - [14/Jan/2026:08:43:01 +0000] "GET /script.js HTTP/1.1" 200 - "http://127.0.0.1:5000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36 Edg/143.0.0.0" {"metadata":{"emulator":{"name":"hosting"},"message":"127.0.0.1 - - [14/Jan/2026:08:43:01 +0000] \"GET /script.js HTTP/1.1\" 200 - \"http://127.0.0.1:5000/\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36 Edg/143.0.0.0\""}}
+[info] i  hosting: 127.0.0.1 - - [14/Jan/2026:08:43:02 +0000] "GET /favicon.ico HTTP/1.1" 200 - "http://127.0.0.1:5000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36 Edg/143.0.0.0" {"metadata":{"emulator":{"name":"hosting"},"message":"127.0.0.1 - - [14/Jan/2026:08:43:02 +0000] \"GET /favicon.ico HTTP/1.1\" 200 - \"http://127.0.0.1:5000/\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36 Edg/143.0.0.0\""}}
+[debug] [2026-01-14T08:43:28.874Z] >>> [apiv2][query] POST http://127.0.0.1:5001/functions/projects/study-sprint-64688/trigger_multicast [none]
+[debug] [2026-01-14T08:43:28.877Z] >>> [apiv2][body] POST http://127.0.0.1:5001/functions/projects/study-sprint-64688/trigger_multicast {"eventId":"1768380208873","timestamp":"2026-01-14T08:43:28.873Z","eventType":"google.storage.object.finalize","resource":{"service":"storage.googleapis.com","name":"projects/_/buckets/study-sprint-64688.appspot.com/objects/syllabi/Syllabus_Calculus for Engineers _MA101L_B. Tech. I Sem.2025.pdf","type":"storage#object"},"data":{"kind":"storage#object","name":"syllabi/Syllabus_Calculus for Engineers _MA101L_B. Tech. I Sem.2025.pdf","bucket":"study-sprint-64688.appspot.com","generation":"1768380208016","metageneration":"1","contentType":"application/pdf","timeCreated":"2026-01-14T08:43:28.017Z","updated":"2026-01-14T08:43:28.017Z","storageClass":"STANDARD","size":"197188","md5Hash":"/89aGYUgoJZCqxQMYOhrBQ==","etag":"ZbIqPsQTLsk7aqWalvv9ildyv8s","metadata":{"firebaseStorageDownloadTokens":"3b4d581c-c862-4a3d-911a-0a4b4649770b"},"crc32c":"s3dHDA==","timeStorageClassUpdated":"2026-01-14T08:43:28.017Z","id":"study-sprint-64688.appspot.com/syllabi/Syllabus_Calculus for Engineers _MA101L_B. Tech. I Sem.2025.pdf/1768380208016","selfLink":"http://127.0.0.1:9199/storage/v1/b/study-sprint-64688.appspot.com/o/syllabi%2FSyllabus_Calculus%20for%20Engineers%20_MA101L_B.%20Tech.%20I%20Sem.2025.pdf","mediaLink":"http://127.0.0.1:9199/download/storage/v1/b/study-sprint-64688.appspot.com/o/syllabi%2FSyllabus_Calculus%20for%20Engineers%20_MA101L_B.%20Tech.%20I%20Sem.2025.pdf?generation=1768380208016&alt=media"}}
+[debug] [2026-01-14T08:43:28.892Z] <<< [apiv2][status] POST http://127.0.0.1:5001/functions/projects/study-sprint-64688/trigger_multicast 200
+[debug] [2026-01-14T08:43:28.892Z] <<< [apiv2][body] POST http://127.0.0.1:5001/functions/projects/study-sprint-64688/trigger_multicast {"status":"multicast_acknowledged"}
+[debug] [2026-01-14T08:43:28.894Z] >>> [apiv2][query] POST http://127.0.0.1:5001/functions/projects/study-sprint-64688/trigger_multicast [none]
+[debug] [2026-01-14T08:43:28.894Z] >>> [apiv2][body] POST http://127.0.0.1:5001/functions/projects/study-sprint-64688/trigger_multicast {"specversion":"1.0","id":"ff53e333-c776-48c6-8e45-23cb9621c569","type":"google.cloud.storage.object.v1.finalized","source":"//storage.googleapis.com/projects/_/buckets/study-sprint-64688.appspot.com/objects/syllabi/Syllabus_Calculus for Engineers _MA101L_B. Tech. I Sem.2025.pdf","time":"2026-01-14T08:43:28.017Z","data":{"kind":"storage#object","name":"syllabi/Syllabus_Calculus for Engineers _MA101L_B. Tech. I Sem.2025.pdf","bucket":"study-sprint-64688.appspot.com","generation":"1768380208016","metageneration":"1","contentType":"application/pdf","timeCreated":"2026-01-14T08:43:28.017Z","updated":"2026-01-14T08:43:28.017Z","storageClass":"STANDARD","size":"197188","md5Hash":"/89aGYUgoJZCqxQMYOhrBQ==","etag":"ZbIqPsQTLsk7aqWalvv9ildyv8s","metadata":{"firebaseStorageDownloadTokens":"3b4d581c-c862-4a3d-911a-0a4b4649770b"},"crc32c":"s3dHDA==","timeStorageClassUpdated":"2026-01-14T08:43:28.017Z","id":"study-sprint-64688.appspot.com/syllabi/Syllabus_Calculus for Engineers _MA101L_B. Tech. I Sem.2025.pdf/1768380208016","selfLink":"http://127.0.0.1:9199/storage/v1/b/study-sprint-64688.appspot.com/o/syllabi%2FSyllabus_Calculus%20for%20Engineers%20_MA101L_B.%20Tech.%20I%20Sem.2025.pdf","mediaLink":"http://127.0.0.1:9199/download/storage/v1/b/study-sprint-64688.appspot.com/o/syllabi%2FSyllabus_Calculus%20for%20Engineers%20_MA101L_B.%20Tech.%20I%20Sem.2025.pdf?generation=1768380208016&alt=media"}}
+[debug] [2026-01-14T08:43:28.900Z] <<< [apiv2][status] POST http://127.0.0.1:5001/functions/projects/study-sprint-64688/trigger_multicast 200
+[debug] [2026-01-14T08:43:28.900Z] <<< [apiv2][body] POST http://127.0.0.1:5001/functions/projects/study-sprint-64688/trigger_multicast {"status":"multicast_acknowledged"}
+[debug] [2026-01-14T08:43:28.912Z] [work-queue] {"queuedWork":["/study-sprint-64688/us-central1/analyze_syllabus-2026-01-14T08:43:28.912Z"],"queueLength":1,"runningWork":[],"workRunningCount":0}
+[debug] [2026-01-14T08:43:28.913Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/study-sprint-64688/us-central1/analyze_syllabus-2026-01-14T08:43:28.912Z"],"workRunningCount":1}
+[debug] [2026-01-14T08:43:28.914Z] Accepted request OPTIONS /study-sprint-64688/us-central1/analyze_syllabus --> us-central1-analyze_syllabus
+[debug] [2026-01-14T08:43:28.920Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2026-01-14T08:43:28.921Z] [functions] Got req.url=/study-sprint-64688/us-central1/analyze_syllabus, mapping to path=/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/study-sprint-64688/us-central1/analyze_syllabus, mapping to path=/"}}
+[debug] [2026-01-14T08:43:28.945Z] Running command with virtualenv: command="D:\web dev projects\study sprint ai\functions\venv\Scripts\activate.bat", args=["","&&","functions-framework"]
+[debug] [2026-01-14T08:43:28.974Z] [worker-pool] addWorker(us-central1-analyze_syllabus) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] addWorker(us-central1-analyze_syllabus)"}}
+[debug] [2026-01-14T08:43:28.976Z] [worker-pool] Adding worker with key us-central1-analyze_syllabus, total=1 {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] Adding worker with key us-central1-analyze_syllabus, total=1"}}
+[info] >  D:\web dev projects\study sprint ai\functions\main.py:3: FutureWarning:  {"user":"D:\\web dev projects\\study sprint ai\\functions\\main.py:3: FutureWarning: \r","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-analyze_syllabus"},"extension":{},"message":"\u001b[90m> \u001b[39m D:\\web dev projects\\study sprint ai\\functions\\main.py:3: FutureWarning: \r"}}
+[info] >   {"user":"\r","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-analyze_syllabus"},"extension":{},"message":"\u001b[90m> \u001b[39m \r"}}
+[info] >  All support for the `google.generativeai` package has ended. It will no longer be receiving  {"user":"All support for the `google.generativeai` package has ended. It will no longer be receiving \r","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-analyze_syllabus"},"extension":{},"message":"\u001b[90m> \u001b[39m All support for the `google.generativeai` package has ended. It will no longer be receiving \r"}}
+[info] >  updates or bug fixes. Please switch to the `google.genai` package as soon as possible. {"user":"updates or bug fixes. Please switch to the `google.genai` package as soon as possible.\r","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-analyze_syllabus"},"extension":{},"message":"\u001b[90m> \u001b[39m updates or bug fixes. Please switch to the `google.genai` package as soon as possible.\r"}}
+[info] >  See README for more details: {"user":"See README for more details:\r","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-analyze_syllabus"},"extension":{},"message":"\u001b[90m> \u001b[39m See README for more details:\r"}}
+[info] >   {"user":"\r","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-analyze_syllabus"},"extension":{},"message":"\u001b[90m> \u001b[39m \r"}}
+[info] >  https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md {"user":"https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md\r","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-analyze_syllabus"},"extension":{},"message":"\u001b[90m> \u001b[39m https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md\r"}}
+[info] >   {"user":"\r","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-analyze_syllabus"},"extension":{},"message":"\u001b[90m> \u001b[39m \r"}}
+[info] >    import google.generativeai as genai {"user":"  import google.generativeai as genai\r","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-analyze_syllabus"},"extension":{},"message":"\u001b[90m> \u001b[39m   import google.generativeai as genai\r"}}
+[info] >  ❌ ERROR: GOOGLE_API_KEY is missing. Make sure it is in your .env file! {"user":"❌ ERROR: GOOGLE_API_KEY is missing. Make sure it is in your .env file!\r","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-analyze_syllabus"},"extension":{},"message":"\u001b[90m> \u001b[39m ❌ ERROR: GOOGLE_API_KEY is missing. Make sure it is in your .env file!\r"}}
+[info] >   * Serving Flask app 'analyze_syllabus' {"user":" * Serving Flask app 'analyze_syllabus'\r","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-analyze_syllabus"},"extension":{},"message":"\u001b[90m> \u001b[39m  * Serving Flask app 'analyze_syllabus'\r"}}
+[info] >   * Debug mode: off {"user":" * Debug mode: off\r","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-analyze_syllabus"},"extension":{},"message":"\u001b[90m> \u001b[39m  * Debug mode: off\r"}}
+[info] >  WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead. {"user":"WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.\r","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-analyze_syllabus"},"extension":{},"message":"\u001b[90m> \u001b[39m WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.\r"}}
+[info] >   * Running on http://127.0.0.1:8547 {"user":" * Running on http://127.0.0.1:8547\r","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-analyze_syllabus"},"extension":{},"message":"\u001b[90m> \u001b[39m  * Running on http://127.0.0.1:8547\r"}}
+[info] >  Press CTRL+C to quit {"user":"Press CTRL+C to quit\r","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-analyze_syllabus"},"extension":{},"message":"\u001b[90m> \u001b[39m Press CTRL+C to quit\r"}}
+[info] >  WARNING:root:Request has invalid method. GET {"user":"WARNING:root:Request has invalid method. GET\r","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-analyze_syllabus"},"extension":{},"message":"\u001b[90m> \u001b[39m WARNING:root:Request has invalid method. GET\r"}}
+[info] >  ERROR:root:Invalid request, unable to process. {"user":"ERROR:root:Invalid request, unable to process.\r","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-analyze_syllabus"},"extension":{},"message":"\u001b[90m> \u001b[39m ERROR:root:Invalid request, unable to process.\r"}}
+[debug] [2026-01-14T08:43:32.525Z] [worker-us-central1-analyze_syllabus-8bd92d1f-bbc1-460c-91cf-6636f856fffc]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-analyze_syllabus"},"extension":{},"message":"[worker-us-central1-analyze_syllabus-8bd92d1f-bbc1-460c-91cf-6636f856fffc]: IDLE"}}
+[debug] [2026-01-14T08:43:32.526Z] [worker-pool] submitRequest(triggerId=us-central1-analyze_syllabus) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-analyze_syllabus)"}}
+[info] i  functions: Beginning execution of "us-central1-analyze_syllabus" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-analyze_syllabus"},"extension":{},"message":"Beginning execution of \"us-central1-analyze_syllabus\""}}
+[debug] [2026-01-14T08:43:32.540Z] [worker-us-central1-analyze_syllabus-8bd92d1f-bbc1-460c-91cf-6636f856fffc]: BUSY {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-analyze_syllabus"},"extension":{},"message":"[worker-us-central1-analyze_syllabus-8bd92d1f-bbc1-460c-91cf-6636f856fffc]: BUSY"}}
+[info] >  127.0.0.1 - - [14/Jan/2026 08:43:32] "GET /__/health HTTP/1.1" 400 - {"user":"127.0.0.1 - - [14/Jan/2026 08:43:32] \"GET /__/health HTTP/1.1\" 400 -\r","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-analyze_syllabus"},"extension":{},"message":"\u001b[90m> \u001b[39m 127.0.0.1 - - [14/Jan/2026 08:43:32] \"GET /__/health HTTP/1.1\" 400 -\r"}}
+[info] >  INFO:werkzeug:127.0.0.1 - - [14/Jan/2026 08:43:32] "GET /__/health HTTP/1.1" 400 - {"user":"INFO:werkzeug:127.0.0.1 - - [14/Jan/2026 08:43:32] \"\u001b[31m\u001b[1mGET /__/health HTTP/1.1\u001b[0m\" 400 -\r","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-analyze_syllabus"},"extension":{},"message":"\u001b[90m> \u001b[39m INFO:werkzeug:127.0.0.1 - - [14/Jan/2026 08:43:32] \"\u001b[31m\u001b[1mGET /__/health HTTP/1.1\u001b[0m\" 400 -\r"}}
+[info] >  127.0.0.1 - - [14/Jan/2026 08:43:32] "OPTIONS / HTTP/1.1" 200 - {"user":"127.0.0.1 - - [14/Jan/2026 08:43:32] \"OPTIONS / HTTP/1.1\" 200 -\r","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-analyze_syllabus"},"extension":{},"message":"\u001b[90m> \u001b[39m 127.0.0.1 - - [14/Jan/2026 08:43:32] \"OPTIONS / HTTP/1.1\" 200 -\r"}}
+[info] >  INFO:werkzeug:127.0.0.1 - - [14/Jan/2026 08:43:32] "OPTIONS / HTTP/1.1" 200 - {"user":"INFO:werkzeug:127.0.0.1 - - [14/Jan/2026 08:43:32] \"OPTIONS / HTTP/1.1\" 200 -\r","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-analyze_syllabus"},"extension":{},"message":"\u001b[90m> \u001b[39m INFO:werkzeug:127.0.0.1 - - [14/Jan/2026 08:43:32] \"OPTIONS / HTTP/1.1\" 200 -\r"}}
+[debug] [2026-01-14T08:43:32.563Z] Finishing up request with event=pause {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-analyze_syllabus"},"extension":{},"message":"Finishing up request with event=pause"}}
+[info] i  functions: Finished "us-central1-analyze_syllabus" in 23.3591ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-analyze_syllabus"},"extension":{},"message":"Finished \"us-central1-analyze_syllabus\" in 23.3591ms"}}
+[debug] [2026-01-14T08:43:32.565Z] [worker-us-central1-analyze_syllabus-8bd92d1f-bbc1-460c-91cf-6636f856fffc]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-analyze_syllabus"},"extension":{},"message":"[worker-us-central1-analyze_syllabus-8bd92d1f-bbc1-460c-91cf-6636f856fffc]: IDLE"}}
+[debug] [2026-01-14T08:43:32.567Z] Finishing up request with event=finish {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-analyze_syllabus"},"extension":{},"message":"Finishing up request with event=finish"}}
+[debug] [2026-01-14T08:43:32.568Z] Finishing up request with event=close {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-analyze_syllabus"},"extension":{},"message":"Finishing up request with event=close"}}
+[debug] [2026-01-14T08:43:32.571Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":[],"workRunningCount":0}
+[debug] [2026-01-14T08:43:32.575Z] [work-queue] {"queuedWork":["/study-sprint-64688/us-central1/analyze_syllabus-2026-01-14T08:43:32.575Z"],"queueLength":1,"runningWork":[],"workRunningCount":0}
+[debug] [2026-01-14T08:43:32.576Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/study-sprint-64688/us-central1/analyze_syllabus-2026-01-14T08:43:32.575Z"],"workRunningCount":1}
+[debug] [2026-01-14T08:43:32.576Z] Accepted request POST /study-sprint-64688/us-central1/analyze_syllabus --> us-central1-analyze_syllabus
+[debug] [2026-01-14T08:43:32.579Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2026-01-14T08:43:32.580Z] [functions] Got req.url=/study-sprint-64688/us-central1/analyze_syllabus, mapping to path=/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/study-sprint-64688/us-central1/analyze_syllabus, mapping to path=/"}}
+[debug] [2026-01-14T08:43:32.580Z] [worker-pool] submitRequest(triggerId=us-central1-analyze_syllabus) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-analyze_syllabus)"}}
+[info] i  functions: Beginning execution of "us-central1-analyze_syllabus" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-analyze_syllabus"},"extension":{},"message":"Beginning execution of \"us-central1-analyze_syllabus\""}}
+[debug] [2026-01-14T08:43:32.582Z] [worker-us-central1-analyze_syllabus-8bd92d1f-bbc1-460c-91cf-6636f856fffc]: BUSY {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-analyze_syllabus"},"extension":{},"message":"[worker-us-central1-analyze_syllabus-8bd92d1f-bbc1-460c-91cf-6636f856fffc]: BUSY"}}
+[info] >   {"user":"\r","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-analyze_syllabus"},"extension":{},"message":"\u001b[90m> \u001b[39m \r"}}
+[info] >  🚀 Function 'analyze_syllabus' triggered! {"user":"🚀 Function 'analyze_syllabus' triggered!\r","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-analyze_syllabus"},"extension":{},"message":"\u001b[90m> \u001b[39m 🚀 Function 'analyze_syllabus' triggered!\r"}}
+[info] >  📄 Analyzing File: syllabi/Syllabus_Calculus for Engineers _MA101L_B. Tech. I Sem.2025.pdf {"user":"📄 Analyzing File: syllabi/Syllabus_Calculus for Engineers _MA101L_B. Tech. I Sem.2025.pdf\r","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-analyze_syllabus"},"extension":{},"message":"\u001b[90m> \u001b[39m 📄 Analyzing File: syllabi/Syllabus_Calculus for Engineers _MA101L_B. Tech. I Sem.2025.pdf\r"}}
+[info] >  ⏳ Days until exam: 10 {"user":"⏳ Days until exam: 10\r","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-analyze_syllabus"},"extension":{},"message":"\u001b[90m> \u001b[39m ⏳ Days until exam: 10\r"}}
+[info] >  💾 Downloading to temp file: C:\Users\GAURAV~1\AppData\Local\Temp\Syllabus_Calculus for Engineers _MA101L_B. Tech. I Sem.2025.pdf... {"user":"💾 Downloading to temp file: C:\\Users\\GAURAV~1\\AppData\\Local\\Temp\\Syllabus_Calculus for Engineers _MA101L_B. Tech. I Sem.2025.pdf...\r","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-analyze_syllabus"},"extension":{},"message":"\u001b[90m> \u001b[39m 💾 Downloading to temp file: C:\\Users\\GAURAV~1\\AppData\\Local\\Temp\\Syllabus_Calculus for Engineers _MA101L_B. Tech. I Sem.2025.pdf...\r"}}
+[info] >  ❌ ERROR in main.py: 404 GET http://127.0.0.1:9199/download/storage/v1/b/study-sprint-64688.firebasestorage.app/o/syllabi%2FSyllabus_Calculus%20for%20Engineers%20_MA101L_B.%20Tech.%20I%20Sem.2025.pdf?alt=media: No such object: study-sprint-64688.firebasestorage.app/syllabi/Syllabus_Calculus for Engineers _MA101L_B. Tech. I Sem.2025.pdf: ('Request failed with status code', 404, 'Expected one of', <HTTPStatus.OK: 200>, <HTTPStatus.PARTIAL_CONTENT: 206>) {"user":"❌ ERROR in main.py: 404 GET http://127.0.0.1:9199/download/storage/v1/b/study-sprint-64688.firebasestorage.app/o/syllabi%2FSyllabus_Calculus%20for%20Engineers%20_MA101L_B.%20Tech.%20I%20Sem.2025.pdf?alt=media: No such object: study-sprint-64688.firebasestorage.app/syllabi/Syllabus_Calculus for Engineers _MA101L_B. Tech. I Sem.2025.pdf: ('Request failed with status code', 404, 'Expected one of', <HTTPStatus.OK: 200>, <HTTPStatus.PARTIAL_CONTENT: 206>)\r","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-analyze_syllabus"},"extension":{},"message":"\u001b[90m> \u001b[39m ❌ ERROR in main.py: 404 GET http://127.0.0.1:9199/download/storage/v1/b/study-sprint-64688.firebasestorage.app/o/syllabi%2FSyllabus_Calculus%20for%20Engineers%20_MA101L_B.%20Tech.%20I%20Sem.2025.pdf?alt=media: No such object: study-sprint-64688.firebasestorage.app/syllabi/Syllabus_Calculus for Engineers _MA101L_B. Tech. I Sem.2025.pdf: ('Request failed with status code', 404, 'Expected one of', <HTTPStatus.OK: 200>, <HTTPStatus.PARTIAL_CONTENT: 206>)\r"}}
+[info] >  127.0.0.1 - - [14/Jan/2026 08:43:33] "POST / HTTP/1.1" 500 - {"user":"127.0.0.1 - - [14/Jan/2026 08:43:33] \"POST / HTTP/1.1\" 500 -\r","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-analyze_syllabus"},"extension":{},"message":"\u001b[90m> \u001b[39m 127.0.0.1 - - [14/Jan/2026 08:43:33] \"POST / HTTP/1.1\" 500 -\r"}}
+[info] >  INFO:werkzeug:127.0.0.1 - - [14/Jan/2026 08:43:33] "POST / HTTP/1.1" 500 - {"user":"INFO:werkzeug:127.0.0.1 - - [14/Jan/2026 08:43:33] \"\u001b[35m\u001b[1mPOST / HTTP/1.1\u001b[0m\" 500 -\r","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-analyze_syllabus"},"extension":{},"message":"\u001b[90m> \u001b[39m INFO:werkzeug:127.0.0.1 - - [14/Jan/2026 08:43:33] \"\u001b[35m\u001b[1mPOST / HTTP/1.1\u001b[0m\" 500 -\r"}}
+[debug] [2026-01-14T08:43:33.888Z] Finishing up request with event=pause {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-analyze_syllabus"},"extension":{},"message":"Finishing up request with event=pause"}}
+[info] i  functions: Finished "us-central1-analyze_syllabus" in 1306.218ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-analyze_syllabus"},"extension":{},"message":"Finished \"us-central1-analyze_syllabus\" in 1306.218ms"}}
+[debug] [2026-01-14T08:43:33.894Z] [worker-us-central1-analyze_syllabus-8bd92d1f-bbc1-460c-91cf-6636f856fffc]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-analyze_syllabus"},"extension":{},"message":"[worker-us-central1-analyze_syllabus-8bd92d1f-bbc1-460c-91cf-6636f856fffc]: IDLE"}}
+[debug] [2026-01-14T08:43:33.894Z] Finishing up request with event=finish {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-analyze_syllabus"},"extension":{},"message":"Finishing up request with event=finish"}}
+[debug] [2026-01-14T08:43:33.894Z] Finishing up request with event=close {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-analyze_syllabus"},"extension":{},"message":"Finishing up request with event=close"}}
+[debug] [2026-01-14T08:43:33.895Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":[],"workRunningCount":0}
+[debug] [2026-01-14T08:47:41.400Z] [worker-us-central1-analyze_syllabus-8bd92d1f-bbc1-460c-91cf-6636f856fffc]: exited {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-analyze_syllabus"},"extension":{},"message":"[worker-us-central1-analyze_syllabus-8bd92d1f-bbc1-460c-91cf-6636f856fffc]: exited"}}
+[debug] [2026-01-14T08:47:41.401Z] [worker-us-central1-analyze_syllabus-8bd92d1f-bbc1-460c-91cf-6636f856fffc]: FINISHED {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-analyze_syllabus"},"extension":{},"message":"[worker-us-central1-analyze_syllabus-8bd92d1f-bbc1-460c-91cf-6636f856fffc]: FINISHED"}}
+[debug] [2026-01-14T08:47:41.425Z] Received signal SIGHUP 1
+[info]  
+[info] i  emulators: Received SIGHUP for the first time. Starting a clean shutdown. 
+[info] i  emulators: Please wait for a clean shutdown or send the SIGHUP signal again to stop right now. 
+[info] i  emulators: Shutting down emulators. {"metadata":{"emulator":{"name":"hub"},"message":"Shutting down emulators."}}
+[info] i  ui: Stopping Emulator UI {"metadata":{"emulator":{"name":"ui"},"message":"Stopping Emulator UI"}}
+[info] i  extensions: Stopping Extensions Emulator {"metadata":{"emulator":{"name":"extensions"},"message":"Stopping Extensions Emulator"}}
+[debug] [2026-01-14T08:47:41.428Z] [Extensions] Stopping Extensions emulator, this is a noop.
+[info] i  functions: Stopping Functions Emulator {"metadata":{"emulator":{"name":"functions"},"message":"Stopping Functions Emulator"}}
+[info] i  hosting: Stopping Hosting Emulator {"metadata":{"emulator":{"name":"hosting"},"message":"Stopping Hosting Emulator"}}
+[info] i  storage: Stopping Storage Emulator {"metadata":{"emulator":{"name":"storage"},"message":"Stopping Storage Emulator"}}
+[debug] [2026-01-14T08:47:41.435Z] Stopping rules runtime. {"metadata":{"emulator":{"name":"storage"},"message":"Stopping rules runtime."}}
+[info] i  eventarc: Stopping Eventarc Emulator {"metadata":{"emulator":{"name":"eventarc"},"message":"Stopping Eventarc Emulator"}}
+[info] i  tasks: Stopping Cloud Tasks Emulator {"metadata":{"emulator":{"name":"tasks"},"message":"Stopping Cloud Tasks Emulator"}}
+[info] i  hub: Stopping emulator hub {"metadata":{"emulator":{"name":"hub"},"message":"Stopping emulator hub"}}
+[info] i  logging: Stopping Logging Emulator {"metadata":{"emulator":{"name":"logging"},"message":"Stopping Logging Emulator"}}
+[debug] [2026-01-14T08:47:41.444Z] Could not find VSCode notification endpoint: FetchError: request to http://localhost:40001/vscode/notify failed, reason: . If you are not running the Firebase Data Connect VSCode extension, this is expected and not an issue.
