@@ -364,6 +364,16 @@
             border-bottom: none;
         }
 
+        /* Must-do topics: add left border stripe for emphasis */
+        .study-table tbody tr.must-do {
+            border-left: 4px solid #10B981;
+            background: linear-gradient(90deg, rgba(16, 185, 129, 0.05) 0%, transparent 20%);
+        }
+
+        .study-table tbody tr.must-do:hover {
+            background: linear-gradient(90deg, rgba(16, 185, 129, 0.08) 0%, transparent 20%);
+        }
+
         .study-table td {
             padding: 16px 24px;
             font-size: 14px;
@@ -392,20 +402,25 @@
             color: #2563EB;
         }
 
+        /* Difficulty badges: Easy -> Yellow, Medium -> Blue, Hard -> Red */
         .badge-easy {
-            background: #DCFCE7;
-            color: #16A34A;
+            background: #FEF3C7; /* light yellow */
+            color: #92400E; /* amber/dark yellow */
         }
 
         .badge-medium {
-            background: #FEF3C7;
-            color: #CA8A04;
+            background: #DBEAFE; /* light blue */
+            color: #1E40AF; /* dark blue */
         }
 
         .badge-hard {
-            background: #FEE2E2;
-            color: #DC2626;
+            background: #FEE2E2; /* light red */
+            color: #991B1B; /* dark red */
         }
+
+        /* Mandatory row highlighting removed (no full-row background) */
+
+
 
         .hours {
             color: #374151;

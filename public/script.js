@@ -14,27 +14,20 @@ import {
   connectFunctionsEmulator
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-functions.js";
 
-// ==========================
-// FIREBASE CONFIG (USE YOUR REAL ONE)
-// ==========================
-const firebaseConfig = {
-  apiKey: "AIzaSyBtycxDl7viHVyA85iwpIYiLMKW5A7ke_I",
-  authDomain: "study-sprint-64688.firebaseapp.com",
-  projectId: "study-sprint-64688",
-  storageBucket: "study-sprint-64688.appspot.com",
-  appId: "1:702325091259:web:7a0f0b5c7d1e2f3a4b5c6d"
-};
+// Import the secret config
+import { firebaseConfig } from "./config.js";
 
-// ==========================
-// INIT FIREBASE + EMULATORS
-// ==========================
 const app = initializeApp(firebaseConfig);
+
 const storage = getStorage(app);
 const functions = getFunctions(app);
 
-// Local dev (avoids CORS)
-connectStorageEmulator(storage, "127.0.0.1", 9199);
-connectFunctionsEmulator(functions, "127.0.0.1", 5001);
+// Use "localhost" to match the browser URL
+connectStorageEmulator(storage, "localhost", 9199);
+connectFunctionsEmulator(functions, "localhost", 5001);
+
+// Callable function reference (THIS IS THE ONLY WAY)
+const analyzeSyllabus = httpsCallable(functions, "analyze_syllabus");
 
 // ==========================
 // GLOBAL STATE
@@ -63,18 +56,14 @@ const urgencyContainer = document.getElementById("urgencyContainer");
 const tabsContainer = document.getElementById("tabsContainer");
 const dayView = document.getElementById("dayView");
 
-// ==========================
 // SIDEBAR STATE
-// ==========================
 function setSidebarActive(label) {
   document.querySelectorAll(".nav-item").forEach(btn => {
     btn.classList.toggle("active", btn.textContent.trim() === label);
   });
 }
 
-// ==========================
 // FILE UPLOAD
-// ==========================
 uploadZone.addEventListener("click", () => fileInput.click());
 
 uploadZone.addEventListener("dragover", e => {
@@ -151,7 +140,7 @@ generateBtn.addEventListener("click", async () => {
 });
 
 // ==========================
-// CORE FLOW
+// CORE FLOW (CORRECT)
 // ==========================
 async function generatePlan() {
   hideError();
@@ -159,24 +148,18 @@ async function generatePlan() {
   setSidebarActive("Dashboard");
 
   try {
+    // 1. Upload PDF to Firebase Storage
     const storageRef = ref(storage, `syllabi/${uploadedFile.name}`);
     const snap = await uploadBytes(storageRef, uploadedFile);
 
-    // Call the local HTTP wrapper (has CORS headers) on the Functions emulator
-    const fnUrl = `http://127.0.0.1:5001/${firebaseConfig.projectId}/us-central1/analyze_syllabus_http`;
-    const resp = await fetch(fnUrl, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ filePath: snap.metadata.fullPath, days: daysUntilExam })
+    // 2. Call callable Cloud Function (NO FETCH)
+    const result = await analyzeSyllabus({
+      filePath: snap.metadata.fullPath,
+      days: daysUntilExam
     });
 
-    if (!resp.ok) {
-      const err = await resp.json().catch(()=>({error:'unknown'}));
-      throw new Error('Function error: ' + (err.error || resp.statusText));
-    }
-
-    const data = await resp.json();
-    renderResults(data.plan);
+    // 3. Render result
+    renderResults(result.data.plan);
 
   } catch (err) {
     console.error(err);
@@ -199,18 +182,36 @@ function renderResults(plan) {
   totalHours = plan.reduce((s,t)=>s+Number(t.hours),0);
   remainingHours = totalHours;
 
-  renderUrgency(plan);
+  renderUrgency();
   renderTabs(plan);
 
   plan.forEach(topic => {
     const row = document.createElement("tr");
+
+    // Determine difficulty class (easy, medium, hard)
+    const diff = (topic.difficulty || '').toString().toLowerCase();
+    const diffClass = diff === 'easy' ? 'easy' : diff === 'hard' ? 'hard' : 'medium';
+
+    // Determine if topic is mandatory: either explicit `necessary` flag or High priority
+    // Note: not adding a full-row background highlight per user request
+    const mandatory = topic.necessary === true || (topic.priority && topic.priority.toString().toLowerCase() === 'high');
+
+    const priorityBadgeClass = topic.priority && topic.priority.toString().toLowerCase() === 'high' ? 'badge-high-priority' : (topic.priority && topic.priority.toString().toLowerCase() === 'medium' ? 'badge-medium-priority' : 'badge-medium-priority');
+
     row.innerHTML = `
       <td><input type="checkbox" class="topic-done" data-hours="${topic.hours}"></td>
       <td class="topic-name">${topic.name}</td>
-      <td><span class="badge badge-medium-priority">${topic.priority}</span></td>
-      <td><span class="badge badge-medium">${topic.difficulty}</span></td>
+      <td><span class="badge ${priorityBadgeClass}">${topic.priority}</span></td>
+      <td><span class="badge badge-${diffClass}">${topic.difficulty}</span></td>
       <td class="hours">${topic.hours} hours</td>
     `;
+
+    // Add visual styling for must-do topics
+    if (mandatory) {
+      row.classList.add('must-do');
+      row.querySelector('.topic-name').style.fontWeight = 'bold';
+    }
+
     studyTableBody.appendChild(row);
   });
 
@@ -239,6 +240,8 @@ function renderUrgency() {
       </div>
     </div>
   `;
+
+
 }
 
 // ==========================
@@ -303,7 +306,9 @@ studyTableBody.addEventListener("change", e=>{
 // ==========================
 function setLoading(v){
   generateBtn.disabled=v;
-  btnText.innerHTML=v?`<div class="loader"></div><span>Analyzing...</span>`:"Generate Schedule";
+  btnText.innerHTML=v
+    ? `<div class="loader"></div><span>Analyzing...</span>`
+    : "Generate Schedule";
 }
 
 function showError(msg){

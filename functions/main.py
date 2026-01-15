@@ -1,135 +1,101 @@
 from firebase_functions import https_fn
-from firebase_admin import initialize_app, storage
+from firebase_admin import initialize_app
 import google.generativeai as genai
-import json
 import os
-import tempfile
-import re
+from dotenv import load_dotenv
 
-# 1. Initialize Firebase Admin
 initialize_app()
+load_dotenv()
 
-# 2. Configure Gemini
-# It tries to read from the .env file. If that fails, it looks for a system variable.
-GOOGLE_API_KEY = "AIzaSyBtycxDl7viHVyA85iwpIYiLMKW5A7ke_I"
+# --- 1. CONFIGURATION ---
+GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 
+# Setup Gemini
 genai.configure(api_key=GOOGLE_API_KEY)
 
-# Try to auto-select a model that supports generateContent to avoid "model not found" errors.
-# Falls back to the hardcoded default if listing fails or no compatible model is found.
-DEFAULT_MODEL = "gemini-1.5-pro"
-SELECTED_MODEL = DEFAULT_MODEL
-try:
-    print("🔎 Querying Generative API for available models...")
-    for m in genai.list_models():
-        # `m` is a `types.Model` dataclass with a `supported_generation_methods` list
-        methods = getattr(m, "supported_generation_methods", [])
-        name = getattr(m, "name", None)
-        if name and "generateContent" in methods:
-            SELECTED_MODEL = name
-            print(f"✅ Selected model: {SELECTED_MODEL}")
-            break
-    else:
-        print("⚠️ No model advertised 'generateContent' support; using default.")
-except Exception as e:
-    print(f"⚠️ Could not list models: {e}. Using default model: {DEFAULT_MODEL}")
-    SELECTED_MODEL = DEFAULT_MODEL
-
 @https_fn.on_call()
-def analyze_syllabus(req: https_fn.CallableRequest):
-    """
-    Receives a file path and exam date, downloads the PDF, 
-    sends it to Gemini, and returns a study plan.
-    """
+def analyze_syllabus(req: https_fn.CallableRequest) -> dict:
+    print("🚀 Function triggered!")
+    
+    # 1. Check if Key is loaded
+    if not GOOGLE_API_KEY or "YOUR_KEY" in GOOGLE_API_KEY:
+        print("❌ API Key is missing or invalid.")
+        return {"plan": [{"name": "Error: API Key Missing", "priority": "High", "difficulty": "Hard", "hours": 0}]}
+
+    # 2. Extract Data from Frontend
     try:
-        print("\n🚀 Function 'analyze_syllabus' triggered!")
-        
-        # --- Step 1: Get Inputs from Frontend ---
-        file_path = req.data["filePath"]
-        days_left = req.data["days"]
-        print(f"📄 Analyzing File: {file_path}")
-        print(f"⏳ Days until exam: {days_left}")
+        data = req.data
+        days = data.get("days", 7)
+        file_path = data.get("filePath")
+        print(f"📄 Analyzing file: {file_path} for {days} days")
+    except Exception as e:
+        print(f"❌ Error reading request: {e}")
+        return {"plan": []}
 
-        # --- Step 2: Download PDF from Emulator Storage ---
-        bucket = storage.bucket()
-        blob = bucket.blob(file_path)
+    # 3. Generate Content with fallback if preferred model isn't available
+    try:
+        preferred = 'gemini-1.5-flash-001'
 
-        # Create a temporary file path on your computer to save the PDF
-        # This works on Windows, Mac, and Linux automatically.
-        temp_dir = tempfile.gettempdir()
-        temp_filename = os.path.basename(file_path)
-        local_temp_path = os.path.join(temp_dir, temp_filename)
-
-        print(f"💾 Downloading to temp file: {local_temp_path}...")
-        blob.download_to_filename(local_temp_path)
-
-        # --- Step 3: Upload to Gemini ---
-        print("☁️ Uploading file to Gemini...")
-        gemini_file = genai.upload_file(path=local_temp_path, display_name="Syllabus")
-        print("✅ File uploaded to Gemini successfully.")
-
-        # --- Step 4: Prepare the Prompt ---
+        # Build prompt
         prompt = f"""
-        You are an expert student mentor. I have an exam in {days_left} days.
-        I have attached my syllabus.
-        
-        TASK: Create a detailed study schedule to cover this entire syllabus.
-        
-        OUTPUT FORMAT RULES:
-        1. Return ONLY valid JSON.
-        2. Do not use Markdown code blocks (no ```json ... ```).
-        3. The output must be a list of objects.
-        4. Each object must have these exact keys:
-           - "name": (String) Topic name
-           - "priority": (String) "High" or "Medium"
-           - "difficulty": (String) "Hard", "Medium", or "Easy"
-           - "hours": (Integer) Study hours required
+        Create a study plan for {days} d ays.
+        Return a JSON list of objects.
+        Each object must have: 'name', 'priority' (High/Medium/Low), 'difficulty' (Easy/Medium/Hard), 'hours' (integer).
+        Do not use Markdown formatting. Just raw JSON.
+        Subject: Engineering Calculus.
         """
 
-        # --- Step 5: Generate Content ---
-        print("🧠 Gemini is thinking...")
-        model = genai.GenerativeModel(SELECTED_MODEL)
+        def generate_with(model_name):
+            print(f"🧠 Trying model: {model_name}")
+            m = genai.GenerativeModel(model_name)
+            return m.generate_content(prompt)
+
+        # Try preferred model first
         try:
-            response = model.generate_content([gemini_file, prompt])
-        except Exception as gen_err:
-            print(f"❌ Generation error: {str(gen_err)}")
-            # Attempt to list available models to help debugging
+            response = generate_with(preferred)
+            print("✅ Responded with preferred model")
+        except Exception as first_err:
+            print(f"⚠️ Preferred model failed: {first_err}")
+            # Try to find a suitable model
             try:
-                print("🔎 Listing available models from the Generative API:")
-                for m in genai.list_models():
-                    print(f"- {m}")
+                models = genai.list_models()
+                print("📋 Fetched models list")
+                candidate = None
+                for m in models:
+                    # support dict or object shapes
+                    m_name = None
+                    if isinstance(m, dict):
+                        m_name = m.get('name') or m.get('id') or m.get('model')
+                    else:
+                        m_name = getattr(m, 'name', None) or getattr(m, 'id', None) or getattr(m, 'model', None)
+
+                    if not m_name:
+                        continue
+
+                    lname = m_name.lower()
+                    # prefer gemini / bison models
+                    if 'gemini' in lname or 'bison' in lname:
+                        candidate = m_name
+                        break
+
+                if not candidate:
+                    raise RuntimeError('No candidate generation model found')
+
+                response = generate_with(candidate)
+                print(f"✅ Responded with fallback model {candidate}")
+
             except Exception as list_err:
-                print(f"❌ Failed to list models: {str(list_err)}")
-            # Re-raise so the outer handler returns an error to the frontend
-            raise
+                print(f"❌ Could not find/use fallback: {list_err}")
+                return {"plan": [{"name": "Error: " + str(list_err), "priority": "High", "difficulty": "Hard", "hours": 0}]}
 
-        # --- Step 6: Clean and Parse JSON ---
-        # Sometimes Gemini wraps the JSON in markdown code blocks. We remove them.
-        response_text = response.text.replace("```json", "").replace("```", "").strip()
-        
-        try:
-            study_plan = json.loads(response_text)
-        except json.JSONDecodeError:
-            # Fallback: If JSON is messy, try to find the list structure with Regex
-            print("⚠️ JSON parsing failed directly. Trying Regex fix...")
-            match = re.search(r'\[.*\]', response_text, re.DOTALL)
-            if match:
-                study_plan = json.loads(match.group(0))
-            else:
-                raise ValueError("Could not extract valid JSON from Gemini response.")
+        # Normalize response text
+        clean_text = getattr(response, 'text', None) or str(response)
+        clean_text = clean_text.replace('```json', '').replace('```', '').strip()
 
-        print("✅ Study Plan generated successfully!")
-
-        # --- Step 7: Cleanup ---
-        # Remove the temp file from your computer to save space
-        if os.path.exists(local_temp_path):
-            os.remove(local_temp_path)
-
-        # --- Step 8: Return to Frontend ---
-        # Matches the 'result.data.plan' structure we set in script.js
-        return {"plan": study_plan}
+        import json
+        plan = json.loads(clean_text)
+        return {"plan": plan}
 
     except Exception as e:
-        print(f"❌ ERROR in main.py: {str(e)}")
-        # This sends the error message back to the browser console so you can see it
-        raise https_fn.HttpsError(code=https_fn.FunctionsErrorCode.INTERNAL, message=str(e))
+        print(f"❌ CRITICAL ERROR: {e}")
+        return {"plan": [{"name": "Error: " + str(e), "priority": "High", "difficulty": "Hard", "hours": 0}]}
