@@ -113,8 +113,8 @@ examDateInput.addEventListener("change", e => {
 
   const today = new Date();
   const exam = new Date(e.target.value);
-  today.setHours(0,0,0,0);
-  exam.setHours(0,0,0,0);
+  today.setHours(0, 0, 0, 0);
+  exam.setHours(0, 0, 0, 0);
 
   const diff = Math.ceil((exam - today) / 86400000);
 
@@ -161,6 +161,10 @@ async function generatePlan() {
     // 3. Render result
     renderResults(result.data.plan);
 
+    // SAVE FOR QUIZ
+    localStorage.setItem("currentSyllabusPath", snap.metadata.fullPath);
+    console.log("Saved syllabus path for quiz:", snap.metadata.fullPath);
+
   } catch (err) {
     console.error(err);
     showError("Failed to generate study plan");
@@ -179,7 +183,7 @@ function renderResults(plan) {
   dayView.innerHTML = "";
   dayView.style.display = "none";
 
-  totalHours = plan.reduce((s,t)=>s+Number(t.hours),0);
+  totalHours = plan.reduce((s, t) => s + Number(t.hours), 0);
   remainingHours = totalHours;
 
   renderUrgency();
@@ -234,8 +238,8 @@ function renderUrgency() {
       <div class="timeline">
         <div>Workload: ${remainingHours} hrs — est ${perDay} hrs/day</div>
         <div class="day-boxes">
-          ${Array.from({length: Math.min(daysUntilExam,30)})
-            .map(()=>`<div class="day-box ${perDay>6?'red':perDay>4?'yellow':'green'}"></div>`).join("")}
+          ${Array.from({ length: Math.min(daysUntilExam, 30) })
+      .map(() => `<div class="day-box ${perDay > 6 ? 'red' : perDay > 4 ? 'yellow' : 'green'}"></div>`).join("")}
         </div>
       </div>
     </div>
@@ -248,42 +252,42 @@ function renderUrgency() {
 // TABS
 // ==========================
 function renderTabs(plan) {
-  const tabs = ["Overview","By Day","Topics"];
-  tabs.forEach((t,i)=>{
+  const tabs = ["Overview", "By Day", "Topics"];
+  tabs.forEach((t, i) => {
     const tab = document.createElement("div");
-    tab.className = `tab ${i===0?'active':''}`;
+    tab.className = `tab ${i === 0 ? 'active' : ''}`;
     tab.textContent = t;
-    tab.onclick = ()=>switchTab(t, plan);
+    tab.onclick = () => switchTab(t, plan);
     tabsContainer.appendChild(tab);
   });
 }
 
 function switchTab(tab, plan) {
-  document.querySelectorAll(".tab").forEach(t=>t.classList.toggle("active",t.textContent===tab));
+  document.querySelectorAll(".tab").forEach(t => t.classList.toggle("active", t.textContent === tab));
 
-  if (tab==="By Day") {
-    document.querySelector(".study-table").style.display="none";
+  if (tab === "By Day") {
+    document.querySelector(".study-table").style.display = "none";
     renderByDay(plan);
   } else {
-    dayView.style.display="none";
-    document.querySelector(".study-table").style.display="table";
+    dayView.style.display = "none";
+    document.querySelector(".study-table").style.display = "table";
   }
 }
 
 function renderByDay(plan) {
-  dayView.style.display="block";
-  dayView.innerHTML="";
+  dayView.style.display = "block";
+  dayView.innerHTML = "";
   const perDay = totalHours / daysUntilExam;
 
-  let day=1, acc=0;
-  const list=document.createElement("div"); list.className="day-list";
+  let day = 1, acc = 0;
+  const list = document.createElement("div"); list.className = "day-list";
 
-  plan.forEach(t=>{
-    if(acc+t.hours>perDay){ day++; acc=0; }
-    acc+=t.hours;
-    const d=document.createElement("div");
-    d.className="day-card";
-    d.innerHTML=`<h4>Day ${day}</h4><div>${t.name} — ${t.hours} hrs</div>`;
+  plan.forEach(t => {
+    if (acc + t.hours > perDay) { day++; acc = 0; }
+    acc += t.hours;
+    const d = document.createElement("div");
+    d.className = "day-card";
+    d.innerHTML = `<h4>Day ${day}</h4><div>${t.name} — ${t.hours} hrs</div>`;
     list.appendChild(d);
   });
 
@@ -293,9 +297,9 @@ function renderByDay(plan) {
 // ==========================
 // CHECKBOX HANDLING
 // ==========================
-studyTableBody.addEventListener("change", e=>{
-  if(!e.target.classList.contains("topic-done")) return;
-  const h=Number(e.target.dataset.hours);
+studyTableBody.addEventListener("change", e => {
+  if (!e.target.classList.contains("topic-done")) return;
+  const h = Number(e.target.dataset.hours);
   remainingHours += e.target.checked ? -h : h;
   e.target.closest("tr").classList.toggle("completed", e.target.checked);
   renderUrgency();
@@ -304,18 +308,18 @@ studyTableBody.addEventListener("change", e=>{
 // ==========================
 // UI HELPERS
 // ==========================
-function setLoading(v){
-  generateBtn.disabled=v;
-  btnText.innerHTML=v
+function setLoading(v) {
+  generateBtn.disabled = v;
+  btnText.innerHTML = v
     ? `<div class="loader"></div><span>Analyzing...</span>`
     : "Generate Schedule";
 }
 
-function showError(msg){
-  errorText.textContent=msg;
+function showError(msg) {
+  errorText.textContent = msg;
   errorAlert.classList.add("show");
 }
 
-function hideError(){
+function hideError() {
   errorAlert.classList.remove("show");
 }

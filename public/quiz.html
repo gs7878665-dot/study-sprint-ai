@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style_quiz.css">
+</head>
+
+<body>
+
+    <div class="quiz-container">
+
+        <!-- ================= HEADER ================= -->
+        <div class="quiz-header">
+            <div class="quiz-title">
+                <i class="fas fa-atom"></i>
+                <span>QUIZ</span>
+            </div>
+
+            <div class="timer-score">
+                <div class="timer">
+                    <i class="fas fa-clock"></i>
+                    <span>TIME LEFT: <span id="timeLeft">00:00</span></span>
+                </div>
+
+                <div class="score-badge">
+                    <i class="fas fa-trophy"></i>
+                    <span>Score: <span id="score">XX</span> points</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= PROGRESS ================= -->
+        <div class="progress-section">
+            <div class="progress-text">
+                Progress: Question <span id="currentQuestion">5</span> of <span id="totalQuestions">20</span>
+            </div>
+
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+            </div>
+        </div>
+
+        <!-- ================= MAIN CONTENT ================= -->
+        <div class="quiz-content">
+
+            <!-- ===== LEFT: QUESTIONS SIDEBAR ===== -->
+            <div class="questions-sidebar">
+                <div class="sidebar-title">Questions Overview</div>
+                <div class="sidebar-subtitle">Dynamic list adjusts to total questions</div>
+
+                <div class="question-grid" id="questionGrid">
+                    <!-- Answered -->
+                    <div class="question-bubble answered"><i class="fas fa-check"></i></div>
+                    <div class="question-bubble answered"><i class="fas fa-check"></i></div>
+                    <div class="question-bubble answered"><i class="fas fa-check"></i></div>
+                    <div class="question-bubble answered"><i class="fas fa-check"></i></div>
+
+                    <!-- Current -->
+                    <div class="question-bubble current">Q5</div>
+
+                    <!-- Unanswered -->
+                    <div class="question-bubble unanswered"><i class="fas fa-question"></i></div>
+                    <div class="question-bubble unanswered"><i class="fas fa-question"></i></div>
+                    <div class="question-bubble unanswered"><i class="fas fa-question"></i></div>
+                    <div class="question-bubble unanswered"><i class="fas fa-question"></i></div>
+                    <div class="question-bubble unanswered"><i class="fas fa-question"></i></div>
+                    <div class="question-bubble unanswered"><i class="fas fa-question"></i></div>
+                    <div class="question-bubble unanswered"><i class="fas fa-question"></i></div>
+                    <div class="question-bubble unanswered"><i class="fas fa-question"></i></div>
+                    <div class="question-bubble unanswered"><i class="fas fa-question"></i></div>
+                    <div class="question-bubble unanswered"><i class="fas fa-question"></i></div>
+                    <div class="question-bubble unanswered"><i class="fas fa-question"></i></div>
+                    <div class="question-bubble unanswered"><i class="fas fa-question"></i></div>
+                    <div class="question-bubble unanswered"><i class="fas fa-question"></i></div>
+                    <div class="question-bubble unanswered"><i class="fas fa-question"></i></div>
+                    <div class="question-bubble unanswered"><i class="fas fa-question"></i></div>
+                </div>
+            </div>
+
+            <!-- ===== RIGHT: QUESTION PANEL ===== -->
+            <div class="main-question-area">
+
+                <div class="question-header" id="questionCategory">
+                    Question 5: Science & Space
+                </div>
+
+                <div class="question-text" id="questionText">
+                    What is the primary component of the atmosphere on Venus?
+                </div>
+
+                <!-- OPTIONS ONLY -->
+                <div class="options-container" id="optionsContainer">
+                    <div class="option" data-option="A">
+                        <div class="option-label">A</div>
+                        <span>Nitrogen</span>
+                    </div>
+
+                    <div class="option selected" data-option="B">
+                        <div class="option-label">B</div>
+                        <span>Carbon Dioxide</span>
+                    </div>
+
+                    <div class="option" data-option="C">
+                        <div class="option-label">C</div>
+                        <span>Oxygen</span>
+                    </div>
+
+                    <div class="option" data-option="D">
+                        <div class="option-label">D</div>
+                        <span>Hydrogen</span>
+                    </div>
+                </div>
+
+                <!-- NAVIGATION -->
+                <div class="navigation-buttons">
+                    <button class="nav-btn btn-previous">
+                        <i class="fas fa-arrow-left"></i>
+                        Previous
+                    </button>
+
+                    <button class="nav-btn btn-next">
+                        Next
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+
+                <!-- SUBMIT -->
+                <div class="btn-submit-container">
+                    <button class="btn-submit">
+                        <span>Submit Quiz</span>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ================= FOOTER ================= -->
+        <div class="footer">
+            Powered by StudySprint AI • Quiz Module
+        </div>
+
+    </div>
+
+    <script type="module" src="quiz_style.js"></script>
+
+</body>
+
+</html>

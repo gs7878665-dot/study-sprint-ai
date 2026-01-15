@@ -99,3 +99,97 @@ def analyze_syllabus(req: https_fn.CallableRequest) -> dict:
     except Exception as e:
         print(f"❌ CRITICAL ERROR: {e}")
         return {"plan": [{"name": "Error: " + str(e), "priority": "High", "difficulty": "Hard", "hours": 0}]}
+
+@https_fn.on_call()
+def generate_quiz(req: https_fn.CallableRequest) -> dict:
+    print("🚀 Quiz Function triggered! (v2-Robust)")
+    
+    # 1. Check if Key is loaded
+    if not GOOGLE_API_KEY or "YOUR_KEY" in GOOGLE_API_KEY:
+        print("❌ API Key is missing or invalid.")
+        return {"questions": [], "error": "API Key is missing or invalid in .env"}
+
+    # 2. Extract Data
+    try:
+        data = req.data
+        file_path = data.get("filePath")
+        print(f"📄 Generating quiz for file: {file_path}")
+    except Exception as e:
+        print(f"❌ Error reading request: {e}")
+        return {"questions": [], "error": f"Request data error: {str(e)}"}
+
+    # 3. Generate Questions
+    try:
+        preferred = 'gemini-1.5-flash-001'
+        
+        prompt = """
+        Based on the subject "Engineering Calculus" (or general knowledge if specific context is missing),
+        generate exactly 5 multiple choice questions.
+        Return a strict JSON array of objects.
+        Each object must have:
+        - 'id': integer (1-5)
+        - 'category': string (short topic name)
+        - 'question': string (the question text)
+        - 'options': array of 4 strings
+        - 'correct': integer (0-3, index of the correct option)
+        
+        Do not use Markdown formatting. Just raw JSON.
+        Make sure the array is not empty.
+        """
+
+        def generate_with(model_name):
+            print(f"🧠 Quiz trying model: {model_name}")
+            m = genai.GenerativeModel(model_name)
+            return m.generate_content(prompt)
+
+        response = None
+        
+        # Try preferred model first
+        try:
+            response = generate_with(preferred)
+            print("✅ Quiz responded with preferred model")
+        except Exception as first_err:
+            print(f"⚠️ Preferred model failed: {first_err}")
+            # Try to find a suitable model
+            try:
+                models = genai.list_models()
+                candidate = None
+                for m in models:
+                    m_name = None
+                    if isinstance(m, dict):
+                        m_name = m.get('name') or m.get('id') or m.get('model')
+                    else:
+                        m_name = getattr(m, 'name', None) or getattr(m, 'id', None) or getattr(m, 'model', None)
+                    
+                    if m_name and ('gemini' in m_name.lower() or 'bison' in m_name.lower()):
+                        candidate = m_name
+                        break
+                
+                if not candidate:
+                    raise RuntimeError('No candidate generation model found')
+
+                response = generate_with(candidate)
+                print(f"✅ Quiz responded with fallback model {candidate}")
+            except Exception as list_err:
+                return {"questions": [], "error": f"Model fallback failed: {str(list_err)}"}
+
+        # Normalize response text
+        clean_text = getattr(response, 'text', None) or str(response)
+        print(f"📝 Raw Response: {clean_text[:100]}...") # Log first 100 chars
+        
+        clean_text = clean_text.replace('```json', '').replace('```', '').strip()
+        
+        if clean_text.startswith("```"): clean_text = clean_text[3:]
+        if clean_text.endswith("```"): clean_text = clean_text[:-3]
+        
+        import json
+        questions = json.loads(clean_text)
+        
+        if not questions:
+             return {"questions": [], "error": "Generated JSON was empty array"}
+             
+        return {"questions": questions}
+
+    except Exception as e:
+        print(f"❌ CRITICAL ERROR IN QUIZ GENERATION: {e}")
+        return {"questions": [], "error": f"Generation failed: {str(e)}"}
